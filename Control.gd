@@ -1,5 +1,6 @@
 extends Panel
 
+var Line = preload("res://AttackLine.tscn")
 var lClickHeld = false
 var rClickHeld = false
 var startOfSlash = Vector2(0,0)
@@ -10,6 +11,7 @@ var llines = []
 var rlines = []
 var inputs = []
 var enemySwipes = []
+var newLine
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -43,7 +45,8 @@ func _process(delta):
 		llines.append([startOfSlash, endOfSlash, 30.0])
 	if (rcompleted == true):
 		rcompleted = false
-		rlines.append([startOfSlash, endOfSlash, 30.0])
+		print("should be followed with instantiation")
+		newLine = AttackLine.new(startOfSlash,endOfSlash)
 	update()
 
 func _draw():
@@ -52,29 +55,10 @@ func _draw():
 		draw_line(startOfSlash, get_local_mouse_position(), Color.white, 30.0)
 		draw_circle(startOfSlash, 15.0,Color.white)
 		draw_circle(get_local_mouse_position(), 15.0,Color.white)
-	for line in llines.size():
-		if llines[line][2] > 0:
-			draw_line(llines[line][0],llines[line][1],Color.white,30.0/(31.0-llines[line][2]))
-			draw_circle(llines[line][0],30.0/(31.0-llines[line][2])/2.0,Color.white)
-			draw_circle(llines[line][1],30.0/(31.0-llines[line][2])/2.0,Color.white)
-			llines[line][2] -= 1
-			
-	for line in range(llines.size(), 0, -1):
-		if llines[line-1][2] <= 0:
-			llines.remove(line-1)
 	if rClickHeld == true:
 		draw_line(startOfSlash, get_local_mouse_position(), Color.lightgray, 30.0)
 		draw_circle(startOfSlash, 15.0,Color.lightgray)
 		draw_circle(get_local_mouse_position(), 15.0,Color.lightgray)
-	for line in rlines.size():
-		if rlines[line][2] > 0:
-			draw_line(rlines[line][0],rlines[line][1],Color.lightgray,30.0/(31.0-rlines[line][2]))
-			draw_circle(rlines[line][0],30.0/(31.0-rlines[line][2])/2.0,Color.lightgray)
-			draw_circle(rlines[line][1],30.0/(31.0-rlines[line][2])/2.0,Color.lightgray)
-			rlines[line][2] -= 1
-	for line in range(rlines.size(), 0, -1):
-		if rlines[line-1][2] <= 0:
-			rlines.remove(line-1)
 	
 	#Enemy Input Processing
 	if get_node("EnemyControl").delay <= 0:

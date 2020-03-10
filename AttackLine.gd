@@ -3,25 +3,29 @@ class_name AttackLine
 
 # Declare member variables here. Examples:
 var lineWidth = 30
-var lineDuration = 30
-var start = Vector2(0, 500)
-var end = Vector2(1000, 500)
+var lineDuration = 100
+var start = Vector2(0, 300)
+var end = Vector2(1000, 300)
+var time
 
-func _init(var start, var end):
-	self.start = start
-	self.end = end
+func _init(param_start = Vector2(0,200), param_end = Vector2(1000,200)):
+	self.start = param_start
+	self.end = param_end
+	self.time = lineDuration
+	print("made a line")
 
 func _ready():
 	pass
 
 func _process(delta):
-	if (lineWidth > 0):
-		lineWidth -= 1
+	if (time > 0):
+		time -= 1
+		print(time)
 	else:
 		queue_free()
 	update()
 
 func _draw():
-	draw_line(start, end, Color.gray, lineWidth)
-	draw_circle(start, lineWidth/2.0, Color.gray)
-	draw_circle(end, lineWidth/2.0, Color.gray)
+	draw_line(start, end, Color.gray, lineWidth/((lineDuration+1.0)-time))
+	draw_circle(start, lineWidth/((lineDuration+1.0)-time)/2.0, Color.gray)
+	draw_circle(end, lineWidth/((lineDuration+1.0)-time)/2.0, Color.gray)
