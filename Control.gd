@@ -9,6 +9,7 @@ var rcompleted = false
 var llines = []
 var rlines = []
 var inputs = []
+var enemySwipes = []
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -62,14 +63,14 @@ func _draw():
 		if llines[line-1][2] <= 0:
 			llines.remove(line-1)
 	if rClickHeld == true:
-		draw_line(startOfSlash, get_local_mouse_position(), Color.red, 30.0)
-		draw_circle(startOfSlash, 15.0,Color.red)
-		draw_circle(get_local_mouse_position(), 15.0,Color.red)
+		draw_line(startOfSlash, get_local_mouse_position(), Color.lightgray, 30.0)
+		draw_circle(startOfSlash, 15.0,Color.lightgray)
+		draw_circle(get_local_mouse_position(), 15.0,Color.lightgray)
 	for line in rlines.size():
 		if rlines[line][2] > 0:
-			draw_line(rlines[line][0],rlines[line][1],Color.red,30.0/(31.0-rlines[line][2]))
-			draw_circle(rlines[line][0],30.0/(31.0-rlines[line][2])/2.0,Color.red)
-			draw_circle(rlines[line][1],30.0/(31.0-rlines[line][2])/2.0,Color.red)
+			draw_line(rlines[line][0],rlines[line][1],Color.lightgray,30.0/(31.0-rlines[line][2]))
+			draw_circle(rlines[line][0],30.0/(31.0-rlines[line][2])/2.0,Color.lightgray)
+			draw_circle(rlines[line][1],30.0/(31.0-rlines[line][2])/2.0,Color.lightgray)
 			rlines[line][2] -= 1
 	for line in range(rlines.size(), 0, -1):
 		if rlines[line-1][2] <= 0:
@@ -78,8 +79,14 @@ func _draw():
 	#Enemy Input Processing
 	if get_node("EnemyControl").delay <= 0:
 		inputs.append(get_node("EnemyControl").enemyInput + [50])
+		var newRect = Rect2(Vector2(0,0),Vector2(10,10))
+		newRect.position = inputs[-1][0]
+		newRect.end = inputs[-1][1]
+		
+		#enemySwipes.append(Rect2(inputs[-1][0]),Vector2(10,10))
+		#enemySwipes[-1].end = inputs[-1][1]
 	for line in inputs.size():
-		draw_line(inputs[line][0],inputs[line][1],Color.white,50/(51.0-inputs[line][2]))
+		draw_line(inputs[line][0],inputs[line][1],Color.red,50/(51.0-inputs[line][2]))
 		inputs[line][2] -= 1
 		if inputs[line][2] <= 0:
 			inputs.remove(line)
