@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://GUIControl.gd" type="Script" id=1]
+[ext_resource path="res://Sparring Platform.png" type="Texture" id=2]
+[ext_resource path="res://Control.gd" type="Script" id=3]
+[ext_resource path="res://EnemyControl.gd" type="Script" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment(){
+	COLOR = texture(TEXTURE, UV);
+	COLOR.a = 0.0;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment(){
+	COLOR = texture(TEXTURE, UV);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[node name="SceneMain" type="Node2D"]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+offset = Vector2( 1012, 604 )
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="GUIControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -19.4263
+margin_top = 23.7432
+margin_right = 2004.57
+margin_bottom = 1231.74
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OverviewPanel" type="Panel" parent="GUIControl"]
+material = SubResource( 2 )
+anchor_left = 0.25
+anchor_top = 0.88
+anchor_right = 0.746
+anchor_bottom = 1.0
+margin_left = 0.199982
+margin_top = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlatformSprite" type="Sprite" parent="GUIControl/OverviewPanel"]
+material = SubResource( 4 )
+position = Vector2( 507.3, 113.05 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -66.716 )
+
+[node name="CombatPanel" type="Panel" parent="GUIControl"]
+margin_left = 470.0
+margin_top = 10.0
+margin_right = 1554.0
+margin_bottom = 1035.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyControl" type="Control" parent="GUIControl/CombatPanel"]
+margin_left = -450.574
+margin_top = -33.7432
+margin_right = -410.574
+margin_bottom = 6.2568
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerControl" type="Control" parent="GUIControl/CombatPanel"]
+margin_right = 1086.0
+margin_bottom = 1019.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoordsLabel" type="Label" parent="GUIControl"]
+margin_left = 481.879
+margin_top = 26.6571
+margin_right = 929.879
+margin_bottom = 229.657
+text = "Test"
