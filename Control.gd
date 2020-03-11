@@ -1,6 +1,7 @@
 extends Panel
 
 var AttackLine = load("res://AttackLine.gd")
+var BlockLine = load("res://BlockLine.gd")
 var lClickHeld = false
 var rClickHeld = false
 var startOfSlash = Vector2(0,0)
