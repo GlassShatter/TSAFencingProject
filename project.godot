@@ -8,14 +8,9 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node2D",
-"class": "AttackLine",
-"language": "GDScript",
-"path": "res://AttackLine.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"AttackLine": ""
+
 }
 
 [application]
@@ -23,6 +18,11 @@ _global_script_class_icons={
 config/name="FencingTSA"
 run/main_scene="res://SceneMain.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+UserData="*res://addons/github-integration/scripts/user_data.gd"
+IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
 
 [display]
 

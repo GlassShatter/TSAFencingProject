@@ -1,6 +1,6 @@
 extends Panel
 
-var Line = preload("res://AttackLine.tscn")
+var AttackLine = load("res://AttackLine.gd")
 var lClickHeld = false
 var rClickHeld = false
 var startOfSlash = Vector2(0,0)
@@ -11,7 +11,6 @@ var llines = []
 var rlines = []
 var inputs = []
 var enemySwipes = []
-var newLine
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -37,16 +36,17 @@ func _input(event):
 					endOfSlash = get_local_mouse_position()
 
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func _process(delta):
 	if (lcompleted == true):
 		lcompleted = false
-		llines.append([startOfSlash, endOfSlash, 30.0])
+		var newLine = AttackLine.new(startOfSlash,endOfSlash,30)
+		add_child(newLine)
 	if (rcompleted == true):
 		rcompleted = false
-		print("should be followed with instantiation")
-		newLine = AttackLine.new(startOfSlash,endOfSlash)
+		var newLine = AttackLine.new(startOfSlash,endOfSlash,30)
+		add_child(newLine)
 	update()
 
 func _draw():
